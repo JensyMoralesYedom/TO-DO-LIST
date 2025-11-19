@@ -29,13 +29,13 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							<input type="text" name="" class="form-control input_user" value="" placeholder="username">
+							<input type="text" name="" class="form-control input_user" value="" placeholder="username" id="usuario" name="usuario">
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<input type="password" name="" class="form-control input_pass" value="" placeholder="password">
+							<input type="password" name="" class="form-control input_pass" value="" placeholder="password" id="pass" name="pass">
 						</div>
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
@@ -51,7 +51,7 @@
 		
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
-						Don't have an account? <a href="#" class="ml-2">Sign Up</a>
+						Don't have an account? <a href="sing_up.php" class="ml-2">Sign Up</a>
 					</div>
 					<div class="d-flex justify-content-center links">
 						<a href="#">Forgot your password?</a>
