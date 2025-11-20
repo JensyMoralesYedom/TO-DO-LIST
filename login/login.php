@@ -3,7 +3,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 <?php
-// no incluir conexiondb.php aquí (evita salidas antes de HTML). La verificación se hace en prueba-index.php
 ?>
 <!DOCTYPE html>
 <html>

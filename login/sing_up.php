@@ -55,9 +55,9 @@
         </div>
     </div>
     <?php
-    if(isset($_POST['nomap']) && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
     
-        $ins = $conn -> query("INSERT INTO usuarios (nombre, apellido, username, email, password) VALUES ('$_POST[nombre]', '$_POST[apellido]', '$_POST[username]', '$_POST[email]', '$_POST[password]')");
+        $ins = $conn -> query("INSERT INTO usuarios (nombre, apellido, usuario, email, password_hash) VALUES ('$_POST[nombre]', '$_POST[apellido]', '$_POST[username]', '$_POST[email]', '$_POST[password]')");
 
             IF ($ins){
                 HEADER("Location: bienvenida.php");

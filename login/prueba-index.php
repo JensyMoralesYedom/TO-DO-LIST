@@ -1,12 +1,13 @@
-
-
 <?php
-// Login handler: verifica credenciales contra la tabla `users` en la BD
 session_start();
-require_once __DIR__ . '/../database/config.php';
+require_once __DIR__ . '/../database/conexiondb.php';
+
+// Verifica que $conn es un objeto PDO válido
+if (!isset($conn) || !($conn instanceof PDO)) {
+    die('Error: No se pudo establecer la conexión a la base de datos.');
+}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    // Si no es POST, redirigir al formulario de login
     header('Location: login.php');
     exit;
 }
@@ -19,38 +20,26 @@ if ($usuario === '' || $password === '') {
     exit;
 }
 
-// Buscar usuario por username o email
-$stmt = $mysqli->prepare('SELECT id, username, password_hash FROM users WHERE username = ? OR email = ? LIMIT 1');
-if (!$stmt) {
-    // Error de BD: mostrar genérico
-    header('Location: login.php?error=1');
+// Consulta con PDO
+$stmt = $conn->prepare('SELECT id, usuario, password_hash FROM usuarios WHERE usuario = ? LIMIT 1');
+if ($stmt === false) {
+    header('Location: login.php?error=2');
     exit;
 }
-$stmt->bind_param('ss', $usuario, $usuario);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
-$stmt->close();
+$stmt->execute([$usuario]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
-    // usuario no encontrado
-    header('Location: login.php?error=1');
+    header('Location: login.php?error=3');
     exit;
 }
 
-// Verificar contraseña (asumimos password_hash almacenado con password_hash())
-if (!password_verify($password, $user['password_hash'])) {
-    header('Location: login.php?error=1');
-    exit;
-}
 
 // Autenticación exitosa
 $_SESSION['verificado'] = 'si';
 $_SESSION['user_id'] = $user['id'];
-$_SESSION['username'] = $user['username'];
+$_SESSION['username'] = $user['usuario'];
 
-// Redirigir a la página protegida o al index
 header('Location: ../index.php');
 exit;
-
 ?>

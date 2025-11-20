@@ -1,7 +1,8 @@
-<?php include("agregarTarea.php"); 
+<?php 
+include_once('database/conexiondb.php');
 session_start();
 if(!isset($_SESSION["verificado"])) {
-    header("Location: login/prueba-index.php?error=1");
+    header("Location: login/login.php?error=1");
 }
 
 ?>
